@@ -1,0 +1,13 @@
+sigmathird:
+    ip: "0.0.0.0"
+    port: 7073
+logpath: "/sigmathird/log"
+work_path: "/sigmathird/temp"
+database:
+    host: "127.0.0.1:27017"
+    database: "sigmathird"
+server_addr: "http://192.168.1.128:7070"
+auth:
+    yinggu:
+        key: "xxxxxxxxx"
+        secret: "yyyyyyyy"
