@@ -4,12 +4,15 @@ from flask import Flask, request
 from flask_api import status
 import hashlib
 import json
+from db import save_yinggu
+from logger import logger
 
 app = Flask(__name__)
 
 
 @app.route('/CloudDiagnosis/Study', methods=['post'])
 def yinggu():
+    logger.info("start to new a yinggu task")
     request_body = json.loads(request.get_data())
     request_args = request.args.to_dict()
     request_data = dict(request_body[0].items() + request_args.items())
@@ -25,7 +28,7 @@ def yinggu():
                 content["isSuccess"] = False
                 content["resultCode"] = "1"
                 content["resultMsg"] = "{}参数为空".format(arg)
-                print("YingGu add study failed, msg:{}".format(content["resultMsg"]))
+                logger.warning("new yinggu task failed, because: {}".format(content["resultMsg"]))
                 result_content = json.dumps(content)
                 return result_content, status.HTTP_400_BAD_REQUEST
 
@@ -40,7 +43,7 @@ def yinggu():
             content["isSuccess"] = False
             content["resultCode"] = "1102"
             content["resultMsg"] = "签名错误"
-            print("YingGu add study failed, msg:{}".format(content["resultMsg"]))
+            logger.warning("new yinggu task failed, because: {}".format(content["resultMsg"]))
             result_content = json.dumps(content)
             return result_content, status.HTTP_400_BAD_REQUEST
 
@@ -55,23 +58,23 @@ def yinggu():
             content["isSuccess"] = False
             content["resultCode"] = "2"
             content["resultMsg"] = result_msg
-            print("YingGu add study failed, msg:{}".format(content["resultMsg"]))
+            logger.warning("new yinggu task failed, because: {}".format(content["resultMsg"]))
             result_content = json.dumps(content)
             return result_content, status.HTTP_400_BAD_REQUEST
 
-        # step4: submit yinggu main task
-        # delay_yinggu_task(data=request_data)
+        # step4: create waiting task
+        save_yinggu(request_data)
         content["isSuccess"] = True
         content["resultCode"] = "0"
         content["resultMsg"] = "success"
         result_content = json.dumps(content)
-        print("YingGu add study success")
+        logger.info("new yinggu task success!")
         return result_content, status.HTTP_200_OK
     except Exception as e:
         content["isSuccess"] = False
         content["resultCode"] = "3"
         content["resultMsg"] = "系统错误，{}".format(e)
-        print("YingGu add study failed, msg:{}".format(content["resultMsg"]))
+        logger.warning("new yinggu task failed, because: {}".format(content["resultMsg"]))
         result_content = json.dumps(content)
         return result_content, status.HTTP_500_INTERNAL_SERVER_ERROR
 

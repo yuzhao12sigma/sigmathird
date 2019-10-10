@@ -1,2 +1,2 @@
 include README.rst
-recursive-include sigmathird *.py
+recursive-include sigmathird *.py *.yaml *.sh *.yml

@@ -1,9 +1,5 @@
-pymongo==3.4.0
-pyyaml==3.12
+pymongo==3.6.0
+PyYAML==3.12
 requests==2.13.0
-responses==0.5.1
 Flask==0.12.2
 Flask-API==0.7.1
-Flask-Cors==3.0.3
-gevent==1.2.2
-greenlet==0.4.12
