@@ -19,7 +19,7 @@ setuptools.setup(
     include_package_data=True,
     install_requires=["pymongo==3.6.0",
                       "pyYAML==3.12",
-                      "Flask==0.12.2",
+                      "Flask==1.0",
                       "Flask-API==0.7.1",
                       "requests"]
 )
