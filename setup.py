@@ -18,7 +18,7 @@ setuptools.setup(
     namespace_packages=["sigmathird"],
     include_package_data=True,
     install_requires=["pymongo==3.6.0",
-                      "pyYAML==3.12",
+                      "pyYAML==5.4",
                       "Flask==0.12.2",
                       "Flask-API==0.7.1",
                       "requests"]
